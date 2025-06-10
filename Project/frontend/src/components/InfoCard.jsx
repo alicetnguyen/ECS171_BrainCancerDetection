@@ -7,8 +7,8 @@ export default function InfoCard({
   children,
   icon,
   buttonText,
-  onButtonClick,  // existing
-  onIconClick,    // ← new prop
+  onButtonClick,  // 
+  onIconClick,    //
 }) {
   // the styling for the InfoCard component
   const cardStyle = {
@@ -95,20 +95,20 @@ export default function InfoCard({
 
   return (
     <div style={cardStyle}>
-      {/* Title */}
+      {/* title */}
       <h2 style={titleStyle}>{title}</h2>
 
-      {/* Body */}
+      {/* body */}
       <p style={bodyStyle}>{children}</p>
 
-      {/* Upload icon: now calls onIconClick */}
+      {/* upload icon: now calls onIconClick */}
       {icon && !buttonText && (
         <div style={uploadBoxStyle} onClick={onIconClick}>
           <img src={icon} alt="" style={iconImgStyle} />
         </div>
       )}
 
-      {/* Paper button */}
+      {/* paper button */}
       {icon && buttonText && (
         <button onClick={onButtonClick} style={buttonStyle}>
           <img src={icon} alt="" style={buttonIconStyle} />

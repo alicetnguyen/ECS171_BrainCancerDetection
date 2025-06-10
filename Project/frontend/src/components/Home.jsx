@@ -6,6 +6,7 @@ import TeamMemberCard from './TeamMemberCard';
 import OutputCard from './OutputCard';
 import uploadIcon from '../assets/Upload.png';
 import paperIcon from '../assets/icon.png';
+import reportPdf from '../assets/report.pdf';  
 import '../index.css';
 
 export default function Home() {
@@ -24,7 +25,6 @@ export default function Home() {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    // create a preview of the image 
     setPreviewSrc(URL.createObjectURL(file));
 
     const formData = new FormData();
@@ -41,6 +41,8 @@ export default function Home() {
     } catch {
       setPrediction('Invalid image, no prediction');
       setConfidence(0);
+    } finally {
+      fileInputRef.current.value = '';
     }
   };
 
@@ -55,7 +57,7 @@ export default function Home() {
           paddingTop: '23px',
         }}
       >
-        {/* this is going to be the header section of the project */}
+        {/* header */}
         <header
           style={{
             display: 'flex',
@@ -68,9 +70,10 @@ export default function Home() {
           <span style={ecsTitleStyle}>ECS 171 Project</span>
         </header>
 
+        {/* spacer thing to make sure that everything is formatted correctly */}
         <div style={{ height: '166px' }} />
 
-        {/* this is going to be the info card section havign a little bit about our project */}
+        {/* infoCards */}
         <section style={infoCardsGrid}>
           <InfoCard title="Who are we?">
             We are a group of UC Davis Students taking ECS 171 and we are focusing on
@@ -89,14 +92,19 @@ export default function Home() {
             of whether the scan shows brain cancer and which type of tumor it is.
           </InfoCard>
 
-          <InfoCard title="Check out our Paper" icon={paperIcon} buttonText="Paper">
-            By clicking the button below, you’ll go to our full research paper where we
-            explain how we built our machine learning model, how we preprocessed the
-            data, and the challenges we faced along the way.
+          <InfoCard
+            title="Check out our Paper"
+            icon={paperIcon}
+            buttonText="Paper"
+            onButtonClick={() => window.open(reportPdf, '_blank')}
+          >
+            By clicking the button below, you’ll go to our full research paper where
+            we explain how we built our machine learning model, how we preprocessed
+            the data, and the challenges we faced along the way.
           </InfoCard>
         </section>
 
-        {/* only be able yo accept .jpg, .jpeg and .png */}
+        {/* hidden file input */}
         <input
           type="file"
           accept=".jpg,.jpeg,.png"
@@ -105,16 +113,19 @@ export default function Home() {
           onChange={handleFileChange}
         />
 
-        {/* this is the output button and this is where the user can click on it */}
+        {/* Output button */}
         {prediction && !showOutput && (
           <div style={{ padding: '0 18px', marginTop: '24px' }}>
-            <button style={outputButtonStyle} onClick={() => setShowOutput(true)}>
+            <button
+              style={outputButtonStyle}
+              onClick={() => setShowOutput(true)}
+            >
               Output
             </button>
           </div>
         )}
 
-        {/* this is going to be the output card in where the output of the model is shown*/}
+        {/* output card */}
         {showOutput && previewSrc && (
           <OutputCard
             imageSrc={previewSrc}
@@ -123,17 +134,38 @@ export default function Home() {
           />
         )}
 
+        {/* spacing */}
         <div style={{ height: '80px' }} />
 
-        {/* meet the team section of the  page */}
+        {/* meet the team section of the page */}
         <section style={{ padding: '0 18px' }}>
           <h3 style={meetTeamTitleStyle}>Meet the Team</h3>
           <div style={teamGrid}>
-            <TeamMemberCard name="Alice Nguyen" role="Project Lead" avatarLetter="A" />
-            <TeamMemberCard name="Raquib Alam" role="Project Member" avatarLetter="R" />
-            <TeamMemberCard name="Vedant Gopal" role="Project Member" avatarLetter="V" />
-            <TeamMemberCard name="Alex Do" role="Project Member" avatarLetter="A" />
-            <TeamMemberCard name="Amber Zhang" role="Project Member" avatarLetter="A" />
+            <TeamMemberCard
+              name="Alice Nguyen"
+              role="Project Lead"
+              avatarLetter="A"
+            />
+            <TeamMemberCard
+              name="Raquib Alam"
+              role="Project Member"
+              avatarLetter="R"
+            />
+            <TeamMemberCard
+              name="Vedant Gopal"
+              role="Project Member"
+              avatarLetter="V"
+            />
+            <TeamMemberCard
+              name="Alex Do"
+              role="Project Member"
+              avatarLetter="A"
+            />
+            <TeamMemberCard
+              name="Amber Zhang"
+              role="Project Member"
+              avatarLetter="A"
+            />
           </div>
         </section>
       </div>
@@ -141,7 +173,7 @@ export default function Home() {
   );
 }
 
-// ---------------- styles ----------------
+// styling for the componenets 
 
 const headerTitleStyle = {
   margin: 0,
